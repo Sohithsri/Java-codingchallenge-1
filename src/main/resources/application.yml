@@ -1,0 +1,24 @@
+spring:
+  jpa:
+    open-in-view: false
+    show-sql: true
+    properties:
+      "[hibernate.dialect]": org.hibernate.dialect.MySQLDialect
+      "[hibernate.generate.statistics]": false
+      "[hibernate.connection.provider_disables_autocommit]": true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+
+  datasource:
+    url: ${mysql.url:jdbc:mysql://localhost:3306/product-db?autoReconnect=true&allowMultiQueries=true}
+    username: "root"
+    password: "root"
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    hikari:
+      auto-commit: false
+      connection-timeout: 250 # � feito em miliseconds. O ideal � manter baixo para estorar timeout
+      max-lifetime: 600000 #tempo adviso que uso conex�o pode ficar aberto (19mins) - security
+      maximum-pool-size: 10 #numero at� o max 20 conex�es com o banco de dados. O ideal � manter baixo
+      minimum-idle: 5
+      pool-name: master
